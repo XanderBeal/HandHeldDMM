@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP REF35300QDBVR
+D Voltage References 650-nA quiescent current, 12-ppm/C drift, ultra-low-power precision voltage reference
+K
+F https://www.arrow.com/en/products/ref35300qdbvr/texas-instruments?region=nac
+$ENDCMP
+#
+#End Doc Library
