@@ -690,7 +690,7 @@
     (property "Value" "1K" (at 119.38 26.035 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Resistor_THT:R_Axial_DIN0516_L15.5mm_D5.0mm_P7.62mm_Vertical" (at 119.38 25.273 90)
+    (property "Footprint" "Resistor_THT:R_Axial_DIN0516_L15.5mm_D5.0mm_P20.32mm_Horizontal" (at 119.38 25.273 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "https://datasheet.lcsc.com/lcsc/2302011630_RESI-EWWR0003J1K00T9_C348856.pdf" (at 119.38 23.495 0)

@@ -1233,6 +1233,11 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 810773ca-8f14-402a-9e35-661936ca8254)
   )
+  (text "Voltage doubler\n- Larger input voltage for easier rail splitting\n- Larger opamp supply voltage helps reduce common mode noise"
+    (at 63.5 -1.27 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid a4950723-3d13-4a18-b386-c4ccf263fcb7)
+  )
   (text "9v battery input" (at 40.64 94.615 0)
     (effects (font (size 2 2) (thickness 0.4) bold) (justify left bottom))
     (uuid d378860d-4001-4c98-997f-afbc34e68401)
