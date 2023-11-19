@@ -478,8 +478,9 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 510ca2f6-10e4-4c17-b59f-657b2d5bad3e)
   )
-  (text "FIND SMALLER RES" (at 105.41 18.415 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
+  (text "Thermister and PTC needed????\n\n10M res voltage rating"
+    (at 95.25 5.715 0)
+    (effects (font (size 3 3) (thickness 0.6) bold) (justify left bottom))
     (uuid 54dcc974-414a-48d4-be9f-0d18c34cee57)
   )
   (text "Lable with silk screen" (at 1.905 38.1 0)
@@ -494,7 +495,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 8b532b96-1139-4c90-afb0-266c265c27f1)
   )
-  (text "- # of MOVs depends on voltage rating of each selected\n\nLayout thoughts:\n- pcb slot surrounding MOVs / inbetween move traces\n- seperate MOVs to prevent arcing across"
+  (text "Change MOV values to new range number\n\n\n- # of MOVs depends on voltage rating of each selected\n\nLayout thoughts:\n- pcb slot surrounding MOVs / inbetween move traces\n- seperate MOVs to prevent arcing across"
     (at 97.155 64.77 0)
     (effects (font (size 1 1)) (justify left bottom))
     (uuid 974d8a61-667a-45b1-9633-8b99ed107feb)
