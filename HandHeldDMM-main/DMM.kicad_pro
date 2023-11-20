@@ -34,9 +34,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.762,
-          "height": 1.524,
-          "width": 1.524
+          "drill": 0.0,
+          "height": 1.3,
+          "width": 1.55
         },
         "silk_line_width": 0.15,
         "silk_text_italic": false,
@@ -45,7 +45,7 @@
         "silk_text_thickness": 0.15,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.5
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [
@@ -193,7 +193,19 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      "lib_symbol_issues|1212850|2235200|008bc75f-fd48-45de-a0e8-61efe5cac42d|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|1466850|2235200|a630508e-8e78-4ba0-830d-05d628a85879|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|1720850|2235200|64218e90-5303-4f39-83ce-8cf16c98960f|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|2216150|1270000|05d3e12a-68a1-4a87-a32d-63b795986b7b|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|704850|2235200|0c28a3b2-19b6-4bed-9a76-a59e43eb0b44|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|704850|2336800|659132c9-4983-4a9d-a982-45ca0e2e159e|00000000-0000-0000-0000-000000000000|||",
+      "lib_symbol_issues|958850|2235200|2987919c-0d61-457b-8f39-57a990949fb6|00000000-0000-0000-0000-000000000000|||",
+      "power_pin_not_driven|2305050|361950|aa90bf70-cc66-4f42-8bba-6d6048694bd0|00000000-0000-0000-0000-000000000000|||",
+      "power_pin_not_driven|3143250|1492250|ac3a2c86-0309-44d3-948a-58f9ad55f663|00000000-0000-0000-0000-000000000000|||",
+      "power_pin_not_driven|590550|387350|a8bc4452-68bf-47ee-ba0e-375f90d2878a|00000000-0000-0000-0000-000000000000|||",
+      "power_pin_not_driven|939800|869950|4124969c-7486-4ab6-8922-90c708c9acd7|00000000-0000-0000-0000-000000000000|||"
+    ],
     "meta": {
       "version": 0
     },
