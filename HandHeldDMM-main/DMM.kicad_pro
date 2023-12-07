@@ -461,11 +461,7 @@
     "meta": {
       "version": 3
     },
-    "net_colors": {
-      "+3.3V": "rgb(255, 0, 255)",
-      "OpAmpSupply+": "rgb(19, 255, 0)",
-      "OpAmpSupply-": "rgb(255, 244, 7)"
-    },
+    "net_colors": null,
     "netclass_assignments": null,
     "netclass_patterns": []
   },

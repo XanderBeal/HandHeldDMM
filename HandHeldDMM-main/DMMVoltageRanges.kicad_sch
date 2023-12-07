@@ -2950,10 +2950,15 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 425599d4-36f1-434b-a696-edd6922481ae)
   )
-  (text "Values need to be 40 and 10K to prevent loading on the opamp\n(20mA max out)"
+  (text "Values need to be 40k and 10K to prevent loading on the opamp\n(2V max out 10V max in)(5:1)"
     (at 458.47 270.51 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 52038c4e-5747-4a4c-9f20-3129e3d4fa5a)
+  )
+  (text "add input resistance\nadd 10K to ground to prevent floating inputs"
+    (at 508.635 313.055 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 5c3c21f7-fba9-4cd6-b8ef-3e19b689fb8b)
   )
   (text "1mA" (at 178.435 196.215 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -3011,6 +3016,10 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid b3b686ca-79e0-4c8c-8efd-b5cfa346f3d9)
   )
+  (text "add opto output control\n" (at 57.785 302.895 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid b46beeda-2509-46c9-9b92-15fe5c83cdcb)
+  )
   (text "\nEquations:             Current Value     R-Set Value        Ohms Range      LCSC\n0.064 = 0.000001A * R;  Amps = 1uA       R = 64,000 ohms    100k - 1M       https://www.lcsc.com/product-detail/Chip-span-style-background-color-ff0-Resistor-span-Surface-Mount_Viking-Tech-ARG03DTC6402N_C2902643.html\n0.064 = 0.000002A * R;  Amps = 2uA       R = 32,000 ohms    \n0.064 = 0.000005A * R;  Amps = 5uA       R = 12,800 ohms    \n0.064 = 0.00800A * R;   Amps = 8uA       R = 8,000 ohms     \n\n0.064 = 0.00001A * R;   Amps = 10uA      R = 6,400 ohms     10K - 100k      https://www.lcsc.com/product-detail/Chip-span-style-background-color-ff0-Resistor-span-Surface-Mount_Viking-Tech-ARG03DTC6401N_C3014413.html\n0.064 = 0.00002A * R;   Amps = 20uA      R = 3,200 ohms\n0.064 = 0.00005A * R;   Amps = 50uA      R = 1,280 ohms \n0.064 = 0.0080A * R;    Amps = 80uA      R = 800 ohms\n\n0.064 = 0.0001A * R;    Amps = 100uA     R = 640 ohms       1k - 10K        4 * (160) https://www.lcsc.com/product-detail/Chip-span-style-background-color-ff0-Resistor-span-Surface-Mount_Viking-Tech-ARG03DTC1600_C2758273.html\n0.064 = 0.0002A * R;    Amps = 200mA     R = 320 ohms\n0.064 = 0.0005A * R;    Amps = 500uA     R = 128 ohms \n0.064 = 0.008A * R;     Amps = 800uA     R = 80 ohms  \n   \n0.064 = 0.001A * R;     Amps = 1mA       R = 64 ohms        100 - 1k        4 * (16) https://www.lcsc.com/product-detail/Chip-Resistor-Surface-Mount_FOJAN-FRC0603F16R0TS_C2906998.html\n0.064 = 0.002A * R;     Amps = 2mA       R = 32 ohms\n0.064 = 0.005A * R;     Amps = 5mA       R = 12.8 ohms\n0.064 = 0.008A * R;     Amps = 8mA       R = 8 ohms\n\n0.064 = 0.01A * R;      Amps = 10mA      R = 6.4 ohms       10 - 100        4 * (1.6) https://www.lcsc.com/product-detail/Chip-Resistor-Surface-Mount_VO-SCR0603F1R6_C3016190.html\n"
     (at 287.02 149.225 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -3042,11 +3051,11 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid d900c5df-f101-4c92-ab0f-8a8e123d0484)
   )
-  (text "what value??" (at 340.36 260.35 0)
+  (text "KILL- loads input circuit" (at 337.185 260.35 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid e4f44c49-9526-42e5-ad5b-40c117e1bfad)
   )
-  (text "20V max input\n2V out\n" (at 513.715 281.305 0)
+  (text "10V max input\n2V out\n" (at 513.715 281.305 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid ed7bd09f-92f1-473b-8673-2315583ee77b)
   )
@@ -4252,7 +4261,7 @@
   )
 
   (symbol (lib_id "Relay_SolidState:CPC1017N") (at 448.31 295.275 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom yes) (on_board yes) (dnp no)
     (uuid 36f091a9-e623-4d1e-8946-b6b6a4ee3768)
     (property "Reference" "U31" (at 448.31 287.02 0)
       (effects (font (size 1.27 1.27)))
@@ -4281,10 +4290,10 @@
     (property "Price / 1" "0.67" (at 448.31 295.275 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 5f57e079-7994-40ec-9e6e-0f3fd84201a6))
-    (pin "2" (uuid 60f0f58f-32f9-48ba-80ad-d0402db1c98f))
-    (pin "3" (uuid 8ab5f877-2447-45f5-9a50-d4e09baaa9ee))
-    (pin "4" (uuid 0ef1d898-8e00-4f10-9ce4-4bc663a9388b))
+    (pin "1" (uuid 3b36eba6-84b5-4b8d-a1d4-fd0eb6ef2902))
+    (pin "2" (uuid ef6c52c4-e01c-486c-a9a0-a7b3381a0a92))
+    (pin "3" (uuid 2b39e91c-881c-48f8-9e31-5c3b03e3c13a))
+    (pin "4" (uuid 2445f142-6a5c-4b5f-b09a-f21d4d44b6e3))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -4309,7 +4318,7 @@
     (property "Datasheet" "" (at 436.88 280.035 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid b1bec443-a0a1-4072-8da4-a55ad5b636bc))
+    (pin "1" (uuid 3e0d76df-6cdd-4ab7-82a6-36df7d1a3817))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -4461,7 +4470,7 @@
     (property "Datasheet" "" (at 113.665 99.695 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 2561e386-b4cd-462c-950a-362c432118cc))
+    (pin "1" (uuid 65c52879-02b4-4488-9239-f8a71ca5f843))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -4651,8 +4660,8 @@
     (property "Store" "https://www.lcsc.com/product-detail/Chip-Resistor-Surface-Mount_Viking-Tech-ARG03FTC4001N_C2984443.html" (at 471.17 273.685 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 4eb7ab43-6a19-4e7d-84c6-650b1efaea90))
-    (pin "2" (uuid f40d032c-44d4-4945-b4b7-86c2ac1b59e0))
+    (pin "1" (uuid a40da6f9-b051-4fde-b1e4-89a35263f1a9))
+    (pin "2" (uuid f1b17930-ced9-4aa0-aefe-ac5fc14aba83))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -4799,8 +4808,8 @@
     (property "Price / 1" "0.0049" (at 433.07 273.685 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 84d8bf84-d1bf-4a1f-acd7-6cf1fa0001f5))
-    (pin "2" (uuid df42f81e-a929-4734-b063-e094210eb6d7))
+    (pin "1" (uuid b3caa2a8-315d-4465-bf33-9a5d6dcba4d4))
+    (pin "2" (uuid 075ba37a-b0a8-410d-a97c-293b7aadb292))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -5940,8 +5949,8 @@
     (property "Price / 1" "0.0049" (at 433.07 292.735 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 620806e8-457a-4848-9480-73a1df456c97))
-    (pin "2" (uuid a496413b-293a-4b56-a42e-0851d2430b72))
+    (pin "1" (uuid 1d0f8d66-1a40-4dae-8491-8cb9684f4215))
+    (pin "2" (uuid 115f652f-3bec-4c50-9941-fc4c982b56bb))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -7048,16 +7057,16 @@
     )
   )
 
-  (symbol (lib_id "Diode:1N4007") (at 540.385 194.31 90) (unit 1)
+  (symbol (lib_id "Diode:1N4007") (at 540.385 194.31 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid afe77ca9-12e0-4ec3-b382-dc1a0e82c26b)
-    (property "Reference" "D5" (at 542.925 193.04 90)
-      (effects (font (size 1.27 1.27)) (justify right))
+    (property "Reference" "D5" (at 543.56 193.04 90)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "1N4007" (at 542.925 195.58 90)
-      (effects (font (size 1.27 1.27)) (justify right))
+    (property "Value" "1N4007" (at 543.56 195.58 90)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" (at 544.83 194.31 0)
+    (property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" (at 535.94 194.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.vishay.com/docs/88503/1n4001.pdf" (at 540.385 194.31 0)
@@ -7334,7 +7343,7 @@
     (property "Datasheet" "" (at 480.06 286.385 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid fd3d7c17-2a6b-452b-b7f0-75f47603a759))
+    (pin "1" (uuid 87ca1821-b3b1-4658-92ab-755aa7e9f5d1))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -7549,8 +7558,8 @@
     (property "Store" "https://www.lcsc.com/product-detail/Chip-span-style-background-color-ff0-Resistor-span-Surface-Mount_RALEC-RTX031001DETP_C5141145.html" (at 480.06 280.035 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid e12819ce-9496-4d2c-be87-e6680417b50b))
-    (pin "2" (uuid 41a9fa71-2056-4df0-9f4e-e6d70431c834))
+    (pin "1" (uuid 25cf34c5-9aa5-4384-b339-47b6633926cd))
+    (pin "2" (uuid 7e2e2011-3c8d-42ad-8493-9eb282d99d85))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -7631,8 +7640,8 @@
     (property "Price / 1" "0.0009" (at 113.665 93.345 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 20a566f7-5a78-4997-8e68-552855768bc4))
-    (pin "2" (uuid 83b6db64-4573-4a4b-ba66-212a9c3def53))
+    (pin "1" (uuid b5ebd010-a64f-44e7-80a2-2ecf091ac623))
+    (pin "2" (uuid 880cac6d-906d-4ac2-9a21-a010d2a6efc1))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
@@ -8184,10 +8193,10 @@
     (property "Price / 1" "0.67" (at 448.31 276.225 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 95f3a70e-a6f4-409c-8683-9b9374c73462))
-    (pin "2" (uuid c4079645-f87f-41dc-8374-f750c95804af))
-    (pin "3" (uuid 1955699e-bc35-4eb1-9a7e-5a15a32c5a08))
-    (pin "4" (uuid 3e7bd1ab-ec6d-404a-af86-ae33b26acc86))
+    (pin "1" (uuid 154b8bf6-de63-4276-aef8-dff1ff0020d6))
+    (pin "2" (uuid cd2a6dd8-a41d-4f82-8b5f-de4c0a77e90b))
+    (pin "3" (uuid 2bd0db38-ac98-4b03-b403-b4710a0ee5c4))
+    (pin "4" (uuid 68b7183a-8fbb-4709-b794-e11f78a2cc54))
     (instances
       (project "DMM"
         (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43/47d95a9d-7333-4fe2-91a0-1743f3158f3f"
