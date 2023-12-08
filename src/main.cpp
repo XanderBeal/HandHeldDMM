@@ -23,7 +23,7 @@ double digitalValue = 0.00;// variable to store the value coming from the sensor
 int configTemp = 0; //tells displayADC which mode is used
 int config2Temp = 0; //tells displayADC which range is used
 double offset = 0; //offset value for measurement cal
-int display = 0; //triggers adc display and home screen clear
+int display1 = 0; //triggers adc display and home screen clear
 
 
 
@@ -88,7 +88,7 @@ void loop() {
 
   offset = cal();
 
-  if(display == 1) //screen selection
+  if(display1 == 1) //screen selection
   {
     displayADC(configTemp, config2Temp, offset);
   }
@@ -127,18 +127,6 @@ void LedBlink()
 void InteruptVolts()
 {
 
-  //itterate each time the button is pressed unless a diffrent fuction has been selected
-  if(configTemp != 1)
-  {
-    configTemp = 1; //sets measure function 
-    config2Temp = 1; //sets starting range for autoranging
-    display = 1; //sets screen to DisplayADC
-  }
-  else
-  {
-    config2Temp = config2Temp + 1;
-  }
-
   //resets range after conpleating a full sweep
   //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
   if( config2Temp == 4)
@@ -146,8 +134,22 @@ void InteruptVolts()
     config2Temp = 1;
   }
 
+  
+  //itterate each time the button is pressed unless a diffrent fuction has been selected
+  if(configTemp != 1)
+  {
+    configTemp = 1; //sets measure function 
+    config2Temp = 1; //sets starting range for autoranging
+    display1 = 1; //sets screen to DisplayADC
+  }
+  else
+  {
+    config2Temp = config2Temp + 1;
+  }
+
+
   //testing on 2V range
-  config2Temp = 3; //sets starting range for autoranging
+  //config2Temp = 3; //sets starting range for autoranging
 }
 
 //amps button response
@@ -158,7 +160,7 @@ void InteruptAmps()
   {
     configTemp = 2; //sets measure function 
     config2Temp = 1; //sets starting range for autoranging
-    display = 1; //sets screen to DisplayADC
+    display1 = 1; //sets screen to DisplayADC
   }
   else
   {
@@ -181,7 +183,7 @@ void InteruptOhms()
   {
     configTemp = 3; //sets measure function 
     config2Temp = 1; //sets starting range for autoranging
-    display = 1; //sets screen to DisplayADC
+    display1 = 1; //sets screen to DisplayADC
   }
   else
   {

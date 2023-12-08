@@ -7,6 +7,7 @@
 #include <Wire.h>
 
 #include "screenDisplay.hpp"
+#include "measure.hpp"
 
 extern Adafruit_SSD1306 display; //becasue "display" is defined in screenDisplay but also needs to be defined here, we can use and extern to define it I guess?
 
@@ -122,17 +123,15 @@ void ampsRange(int config2)
 
 void ohmsRange(int config2)
 {
+  digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
+  digitalWrite(PA2, LOW); //ADCOpto4 (10V)
+  digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
+
+  delay(10); //give time for optos to close
+
+  digitalWrite(PA1, HIGH); //ADCOpto5 (200mV)
   switch(config2)
   {
-      digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
-      digitalWrite(PA2, LOW); //ADCOpto4 (10V)
-      digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
-
-      delay(10); //give time for optos to close
-
-      digitalWrite(PA1, HIGH); //ADCOpto5 (200mV)
-
-
     //change postfix insted of measurement number??????
     //  - at least at certin range????
     case 1: //100 ohms
@@ -155,15 +154,16 @@ void voltsMeas(int config2, double offset)
 {
   //func variable declarations
   double val = 0; //adc readings
+  double val2 = 0; //adc readings
   double Vin = 0;
   double refVoltage = 3.000; //needs cal'ed
-  int avgNum = 500; //number of readings to be averaged for displayed reading
+  int avgNum = 5; //number of readings to be averaged for displayed reading
 
 
   //Master volts control
   digitalWrite(PA4, HIGH); //ADCOpto2 (input to buffer)
 
-
+  display.clearDisplay();
   //measurements collection for averaging 
   for(int x = 0; x < avgNum; x++) //5000 readings 
   {
@@ -175,8 +175,8 @@ void voltsMeas(int config2, double offset)
    }
 
    //create the average
-   val = val / avgNum;
-   Vin = ((val / 65535.00) * refVoltage) * rangeMult + offset;
+   val2 = val / avgNum;
+   Vin = ((val2 / 65535.00) * refVoltage) * rangeMult + offset;
 
  
   /* test code
@@ -189,12 +189,18 @@ void voltsMeas(int config2, double offset)
 
 
   //screen setup
-  display.setTextSize(3);      // Normal 1:1 pixel scale = 3
+  display.setTextSize(2);      // Normal 1:1 pixel scale = 3
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
 
   //displays on screen (value, number of digits (after decinal?))
   display.print(Vin, 4);
+  display.print(" ");
+  display.print(config2);
+  //display.print(" ");
+  //displayPostfix(config, config2); //display V / A / Ohms
+
+  display.display();
 
 }
 

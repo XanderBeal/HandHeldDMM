@@ -3,7 +3,7 @@
 
 void displayADC(int config, int config2, double offset);
 
-void voltsRange(int config2);
+void voltsRange(int);
 void ampsRange(int config2);
 void ohmsRange(int config2);
 
