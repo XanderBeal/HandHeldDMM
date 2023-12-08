@@ -1,0 +1,117 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 0101bfae-58f1-488d-ba55-09c5b4e3e60d)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 176.53 102.235) (size 40.64 24.13) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 4bfe683c-3c3e-41d2-94d7-f4052aca093b)
+    (property "Sheetname" "Display" (at 176.53 101.5234 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "DMMDisplay.kicad_sch" (at 176.53 126.9496 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (property "Field2" "" (at 176.53 102.235 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (instances
+      (project "DMM"
+        (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43" (page "5"))
+      )
+      (project "DMM_V2"
+        (path "/0101bfae-58f1-488d-ba55-09c5b4e3e60d" (page "6"))
+      )
+    )
+  )
+
+  (sheet (at 118.745 62.992) (size 40.64 24.13) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 69de628a-1f29-4477-ba33-a59e78c5f4ec)
+    (property "Sheetname" "Power Supply" (at 118.745 62.2804 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "DMMPowerSupply.kicad_sch" (at 118.745 87.7066 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "DMM"
+        (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43" (page "6"))
+      )
+      (project "DMM_V2"
+        (path "/0101bfae-58f1-488d-ba55-09c5b4e3e60d" (page "4"))
+      )
+    )
+  )
+
+  (sheet (at 63.5 102.87) (size 40.64 24.13) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 910efafa-6a36-46e5-b1d9-83c7fa9b7345)
+    (property "Sheetname" "Measurement Analog" (at 63.5 102.1584 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "DMMVoltageRanges.kicad_sch" (at 63.5 127.5846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "DMM"
+        (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43" (page "3"))
+      )
+      (project "DMM_V2"
+        (path "/0101bfae-58f1-488d-ba55-09c5b4e3e60d" (page "3"))
+      )
+    )
+  )
+
+  (sheet (at 118.745 102.87) (size 40.64 24.13) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid cf9ed7b7-a600-43a6-ae19-c34fc8001884)
+    (property "Sheetname" "MCU" (at 118.745 102.1584 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "DMMMCU.kicad_sch" (at 118.745 127.5846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "DMM"
+        (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43" (page "5"))
+      )
+      (project "DMM_V2"
+        (path "/0101bfae-58f1-488d-ba55-09c5b4e3e60d" (page "2"))
+      )
+    )
+  )
+
+  (sheet (at 63.5 62.865) (size 40.64 24.13) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid dfa0f1af-ced9-428d-9f8b-f7bdeccec6a6)
+    (property "Sheetname" "Input" (at 63.5 62.1534 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "DMMInput.kicad_sch" (at 63.5 87.5796 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "DMM"
+        (path "/fdef8797-05b6-4b9b-8306-0b70a5374f43" (page "2"))
+      )
+      (project "DMM_V2"
+        (path "/0101bfae-58f1-488d-ba55-09c5b4e3e60d" (page "5"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
