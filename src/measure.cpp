@@ -68,7 +68,7 @@ void voltsRange(int config2)
     break;
 
     case 2: //10V
-      rangeMult = 10;
+      rangeMult = 50;
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
       digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
