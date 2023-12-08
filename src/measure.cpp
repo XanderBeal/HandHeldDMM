@@ -48,9 +48,6 @@ void displayADC(int config, int config2, double offset)
 
 
 
-
-
-
 //opens optos in accordance with what range was selected
 //  - needs adc protection (aka overload ability)
 void voltsRange(int config2)
@@ -58,9 +55,9 @@ void voltsRange(int config2)
   switch(config2)
   {
     //start on highest range for range sweping 
-    case 1: //200V
+    case 1: //200V and 2V
       rangeMult = 100;
-      digitalWrite(PA2, LOW);
+      digitalWrite(PA1, LOW);
       digitalWrite(PA3, LOW);
       delay(100);
       //Voltage divider input
@@ -88,8 +85,6 @@ void voltsRange(int config2)
       //ADCOpto3
       digitalWrite(PA3, HIGH);
     break;
-
-
 
     case 4: //200mV
       rangeMult = 100;
