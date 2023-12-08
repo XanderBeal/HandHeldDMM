@@ -15,8 +15,7 @@
 #include <Arduino.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <stm32f3xx_hal_rcc.h>
-#include <stm32f3xx_hal_adc.h>
+
 
 //I2C setup
 #include <Wire.h>
