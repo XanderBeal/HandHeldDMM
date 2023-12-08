@@ -1,4 +1,3 @@
-
 #include <SPI.h>
 #include <Arduino.h>
 #include <Adafruit_GFX.h>
@@ -12,9 +11,6 @@
 extern Adafruit_SSD1306 display;
 
 //variable declarations
-int sensorPin = PB0;  // input pin for the potentiometer
-double val = 0;
-double Vin = 0;
 int config = 0; //tells displayADC which mode is used
 int config2 = 0; //tells displayADC which range is used
 double rangeMult = 1; //multiplier to acount for range on display
@@ -35,39 +31,25 @@ void displayADC(int config, int config2, double offset)
     case 1:
       //volts 
       voltsRange(config2); //set range
-      ADCMeas(config2, offset);  //take measurement
+      voltsMeas(config2, offset);  //take measurement
 
     case 2:
-
+      ampsRange(config2); //set range
+      ampsMeas(config2, offset);  //take measurement
     case 3:
-      //ohms
-      switch(config2) 
-      {
-        //could display ohms symbol?? - video shows how
-        case 1:
-          display.print("R");
-          break;
-        case 2:
-          display.print("kR");
-          break;
-      }  
+      ohmsRange(config2); //set range
+      ohmsMeas(config2, offset);  //take measurement
       break;
   }
 
-  
-  //int getArrayLength = sizeof(cstr) / sizeof(int);
-
-  // for (int i = 1; i < 5 ; i++)
-  // {
-  //    display.writeLine(cstr[i - 1]);
-  //    display.setCursor(i * 23, 0);
-  // }
-
+  //update the display
   display.display();
-  //Serial.print("\n");
-  //delay(100);
 }
 
+
+
+//opens optos in accordance with what range was selected
+//  - needs adc protection (aka overload ability)
 void voltsRange(int config2)
 {
   switch(config2)
@@ -116,18 +98,21 @@ void voltsRange(int config2)
   }
 }
 
-void ampsMeas(void)
+void ampsRange(int config2)
 {
 
 }
 
-void ohmsMeas(void)
+void ohmsRange(int config2)
 {
 
 }
 
-void ADCMeas(int config2, double offset)
+//takes measurement and does convertion to displayable value
+void voltsMeas(int config2, double offset)
 {
+  double val = 0; //adc 
+  double Vin = 0;
   double refVoltage = 3.000; //needs cal'ed
 
   //averaging code
@@ -136,16 +121,14 @@ void ADCMeas(int config2, double offset)
   //  val += analogRead(sensorPin);
   // }
 
-  //val = val / 5000.0;
 
-  //only volts configured
   //ADCOpto2 master volts control
   digitalWrite(PA4, HIGH);
 
 
-  
-  val = analogRead(sensorPin);
-  
+  //set adc pin
+  val = analogRead(PB0);
+
   //scale adc reading to usable voltage
   Vin = ((val / 65535.00) * refVoltage) * rangeMult + offset;
 
@@ -159,9 +142,28 @@ void ADCMeas(int config2, double offset)
   //prints (value, number of digits of value)
   display.print(Vin);
 
+
+
+
+
+
+
 }
 
-void postfix(int config, int config2)
+void ampsMeas(int config2, double offset)
+{
+
+}
+
+void ohmsMeas(int config2, double offset)
+{
+
+}
+
+
+
+//displays the function being used (volts, amps, ohms)
+void displayPostfix(int config, int config2)
 {
   switch(config) 
   {
