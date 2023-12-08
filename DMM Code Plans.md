@@ -1,0 +1,11 @@
+General structure:
+    - Ensure all gpio is set to low and nothing is configured on 
+    - Display 
+    - Startup screen
+        - Display options (volts, amps, ohms, cal / rel)  
+        - Buttons (single press for mode selection, another press for mode deactivation)
+        - Ohms mode can have LED_Test blink when in continuity mode (< 10 Ohms resistance)
+    - Configure ADC to mode
+    - Take measurements
+    - Take average according to mode
+    - Store / display results

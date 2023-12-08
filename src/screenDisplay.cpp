@@ -33,19 +33,18 @@ void bootScreen(void)
         delay(100);
     } // Don't proceed, loop forever
      }
-     //displayTest();
-    //Serial.begin(9600);
-    display.display();
-    //delay(200); 
-    display.clearDisplay();
 
     display.clearDisplay();
   
-    display.setTextSize(3);      // Normal 1:1 pixel scale
+    display.setTextSize(2);      // Normal 1:1 pixel scale = 3
     display.setTextColor(WHITE); // Draw white text
     display.setCursor(0, 0);     // Start at top-left corner
-    display.cp437(true);
+    
+    display.print("Home Screen");
+    display.print("\n");
+    display.print("Select a Range");
 
+    display.display();
 
 
    

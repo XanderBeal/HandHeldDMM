@@ -1,16 +1,3 @@
- /* 
-  General structure:
-  - Ensure all gpio is set to low and nothing is configured on 
-  - Display 
-      - Startup screen
-      - Display options (volts, amps, ohms, cal / rel)  
-          - Buttons (single press for mode selection, another press for mode deactivation)
-          - Ohms mode can have LED_Test blink when in continuity mode (< 10 Ohms resistance)
-  - Configure ADC to mode
-  - Take measurements
-  - Take average according to mode
-  - Store / display results
-  */
 #include <SPI.h>
 #include <Arduino.h>
 #include <Adafruit_GFX.h>
@@ -36,7 +23,7 @@ double digitalValue = 0.00;// variable to store the value coming from the sensor
 int configTemp = 0; //tells displayADC which mode is used
 int config2Temp = 0; //tells displayADC which range is used
 double offset = 0; //offset value for measurement cal
-
+int display = 0; //triggers adc display and home screen clear
 
 
 
@@ -102,7 +89,11 @@ void loop() {
 
   offset = cal();
 
-  displayADC(configTemp, config2Temp, offset);
+  if(display == 1) //screen selection
+  {
+    displayADC(configTemp, config2Temp, offset);
+  }
+  
 
   //for faster run time and refresh, setup range and only change and run code for it if range changes
   // i.e. seperate range and measurement function calling
@@ -120,7 +111,7 @@ void loop() {
 
 
 
-
+//test function 
 void LedBlink()
 {
   digitalWrite(PA15, HIGH);
@@ -133,21 +124,77 @@ void LedBlink()
 }
 
 
-
- void InteruptVolts()
+//volts button response
+void InteruptVolts()
 {
-  configTemp = 1; //sets measure function 
+
+  //itterate each time the button is pressed unless a diffrent fuction has been selected
+  if(configTemp != 1)
+  {
+    configTemp = 1; //sets measure function 
+    config2Temp = 1; //sets starting range for autoranging
+    display = 1; //sets screen to DisplayADC
+  }
+  else
+  {
+    config2Temp = config2Temp + 1;
+  }
+
+  //resets range after conpleating a full sweep
+  //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
+  if( config2Temp == 4)
+  {
+    config2Temp = 1;
+  }
+
+  //testing on 2V range
   config2Temp = 2; //sets starting range for autoranging
 }
- void InteruptAmps()
+
+//amps button response
+void InteruptAmps()
 {
-  configTemp = 2; //sets measure function 
-  config2Temp = 3; //sets starting range for autoranging
+  //itterate each time the button is pressed unless a diffrent fuction has been selected
+  if(configTemp != 2)
+  {
+    configTemp = 2; //sets measure function 
+    config2Temp = 1; //sets starting range for autoranging
+    display = 1; //sets screen to DisplayADC
+  }
+  else
+  {
+    config2Temp = config2Temp + 1;
+  }
+
+  //resets range after conpleating a full sweep
+  //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
+  if( config2Temp == 5)
+  {
+    config2Temp = 1;
+  }
 }
- void InteruptOhms()
+
+//ohms button response
+void InteruptOhms()
 {
-  configTemp = 3; //sets measure function 
-  config2Temp = 1; //sets starting range for autoranging
+  //itterate each time the button is pressed unless a diffrent fuction has been selected
+  if(configTemp != 3)
+  {
+    configTemp = 3; //sets measure function 
+    config2Temp = 1; //sets starting range for autoranging
+    display = 1; //sets screen to DisplayADC
+  }
+  else
+  {
+    config2Temp = config2Temp + 1;
+  }
+
+  //resets range after conpleating a full sweep
+  //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
+  if( config2Temp == 5)
+  {
+    config2Temp = 1;
+  }
 }
 
 
