@@ -55,46 +55,50 @@ void voltsRange(int config2)
   switch(config2)
   {
     //start on highest range for range sweping 
-    case 1: //200V and 2V
+    case 1: //200V
       rangeMult = 100;
-      digitalWrite(PA1, LOW);
-      digitalWrite(PA3, LOW);
-      delay(100);
-      //Voltage divider input
-      digitalWrite(PA0, HIGH);
-      //ADCOpto5
-      digitalWrite(PA1, HIGH);
+      digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
+      digitalWrite(PA2, LOW); //ADCOpto4 (10V)
+
+      delay(10); //give time for optos to close
+
+      digitalWrite(PA0, HIGH); //Vopto1 (Voltage divider input)
+      digitalWrite(PA3, HIGH); //ADCOpto3 (2V 200V)
     break;
 
     case 2: //10V
       rangeMult = 10;
-      digitalWrite(PA0, LOW);
-      digitalWrite(PA1, LOW);
-      digitalWrite(PA2, LOW);
-      delay(100);
-      //ADCOpto4
-      digitalWrite(PA2, HIGH);
+      digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
+      digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
+      digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
+  
+
+      delay(10); //give time for optos to close
+
+      digitalWrite(PA2, HIGH); //ADCOpto4 (10V)
     break;
 
     case 3: //2V
       rangeMult = 1;
-      digitalWrite(PA0, LOW);
-      digitalWrite(PA1, LOW);
-      digitalWrite(PA3, LOW);
-      delay(100);
-      //ADCOpto3
-      digitalWrite(PA3, HIGH);
+      digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
+      digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
+      digitalWrite(PA2, LOW); //ADCOpto4 (10V)
+
+      delay(10); //give time for optos to close
+
+      digitalWrite(PA3, HIGH); //ADCOpto3 (2V 200V)
     break;
 
     case 4: //200mV
       rangeMult = 100;
-      digitalWrite(PA0, LOW);
-      digitalWrite(PA2, LOW);
-      digitalWrite(PA3, LOW);
-      delay(100);
-      //ADCOpto5
-      digitalWrite(PA1, HIGH);
-    break;
+      digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
+      digitalWrite(PA2, LOW); //ADCOpto4 (10V)
+      digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
+
+      delay(10); //give time for optos to close
+
+      digitalWrite(PA1, HIGH); //ADCOpto5 (200mV)
+    break; 
    
   }
 }
@@ -102,19 +106,48 @@ void voltsRange(int config2)
 void ampsRange(int config2)
 {
   switch(config2)
+  {
     case 1: //100mA
-    rangeMult = 100;
-    digitalWrite(PA0, LOW);
-    digitalWrite(PA2, LOW);
-    digitalWrite(PA3, LOW);
-    delay(100);
-    //ADCOpto5
-    digitalWrite(PA1, HIGH);
+      rangeMult = 100;
+      digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
+      digitalWrite(PA2, LOW); //ADCOpto4 (10V)
+      digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
+
+      delay(10); //give time for optos to close
+
+      digitalWrite(PA1, HIGH); //ADCOpto5 (200mV)
+    break;
+  }
 }
 
 void ohmsRange(int config2)
 {
+  switch(config2)
+  {
+      digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
+      digitalWrite(PA2, LOW); //ADCOpto4 (10V)
+      digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
 
+      delay(10); //give time for optos to close
+
+      digitalWrite(PA1, HIGH); //ADCOpto5 (200mV)
+
+
+    //change postfix insted of measurement number??????
+    //  - at least at certin range????
+    case 1: //100 ohms
+      rangeMult = 10;
+    break;
+    case 2: //1K ohms
+      rangeMult = 100;
+    break;
+    case 3: //10K ohms
+      rangeMult = 100;
+    break;
+    case 4: //100K ohms
+      rangeMult = 100;
+    break;
+  }
 }
 
 //takes measurement and does convertion to displayable value
@@ -127,8 +160,8 @@ void voltsMeas(int config2, double offset)
   int avgNum = 500; //number of readings to be averaged for displayed reading
 
 
-  //ADCOpto2 master volts control
-  digitalWrite(PA4, HIGH);
+  //Master volts control
+  digitalWrite(PA4, HIGH); //ADCOpto2 (input to buffer)
 
 
   //measurements collection for averaging 

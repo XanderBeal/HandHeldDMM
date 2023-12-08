@@ -148,7 +148,7 @@ void InteruptVolts()
   }
 
   //testing on 2V range
-  config2Temp = 2; //sets starting range for autoranging
+  config2Temp = 3; //sets starting range for autoranging
 }
 
 //amps button response
