@@ -28,7 +28,6 @@ int display = 0; //triggers adc display and home screen clear
 
 
 
-ghj
 
 
 //One time executed code
