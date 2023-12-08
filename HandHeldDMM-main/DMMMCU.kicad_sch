@@ -2255,6 +2255,11 @@
     (effects (font (size 2 2) (thickness 0.4) bold) (justify left bottom))
     (uuid 0d7f8a17-2a5a-421f-a9c2-15cb6d4533ed)
   )
+  (text "NOT A BI-POLAR ADC YOU DUMBASS!!!!!\n\n- reverse probes for neg voltage (floating supply)"
+    (at -45.085 92.075 0)
+    (effects (font (size 6 6) (thickness 1.2) bold) (justify left bottom))
+    (uuid 0fca8482-8787-4e5b-9fea-be4669a34f1e)
+  )
   (text "STM32 MCU" (at 52.07 16.51 0)
     (effects (font (size 2 2) (thickness 0.4) bold) (justify left bottom))
     (uuid 23fe9018-b43b-4fb4-bf76-ad2355ba8b67)
