@@ -40,10 +40,15 @@ void bootScreen(void)
     display.setTextColor(WHITE); // Draw white text
     display.setCursor(0, 0);     // Start at top-left corner
     
-    display.print("Home Screen");
+    display.print("HomeScreen");
+    //display.print("\n");
+    //display.print("Screen");
     display.print("\n");
-    display.print("Select a Range");
-
+    display.print("\n");
+    display.print("Select a");
+    display.print("\n");
+    display.print("Range");
+    
     display.display();
 
 
