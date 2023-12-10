@@ -18,15 +18,15 @@ double digitalValue = 0.00;// variable to store the value coming from the sensor
 int configTemp = 0; //tells displayADC which mode is used
 int config2Temp = 0; //tells displayADC which range is used
 double offset = 0; //offset value for measurement cal
-int display1 = 0; //triggers adc display and home screen clear
-int choice = 0; //var for boot screen decition
+
 int calVar = 0;
 int test = 0;
 
 
 
 //One time executed code
-void setup() {
+void setup() 
+{
   //cals func to setup MCU clock settings
   SystemClock_Config();
   //sets up I2C pins
@@ -51,34 +51,46 @@ void setup() {
   pinMode(PA6, OUTPUT); //ohms
   digitalWrite(PA6, HIGH);
 
+  //Interupt HELL
   attachInterrupt(digitalPinToInterrupt(PC13), InteruptBoot1, FALLING); //triggers interupt function if PC13 goes low (triggers on falling edge)
   attachInterrupt(digitalPinToInterrupt(PC14), InteruptBoot2, FALLING);
   //start boot screen
-  bootScreen();
 
+  bootScreen();
+  //slopeCalc();
+
+ 
+ 
+  //Interupt HELL
   while(calVar < 1)
   {
-    test = test + 1;
+    LedBlink();
+    if(test == 1)
+    {
+      //LedBlink();
+      slopeCalc();
+      calVar = 1;
+    }
   }
 
-//calScreen(choice); /////need to continuously call teh function to allow the variable being sent to change
- 
+
+
+  //calScreen(choice); /////need to continuously call teh function to allow the variable being sent to change
+  delay(1000);
   //measuremnet interupt setup (reuses the cal interupt gpio pins(buttons))
   attachInterrupt(digitalPinToInterrupt(PC13), InteruptVolts, FALLING); //triggers interuptVolts function if PC13 goes low (triggers on falling edge)
-  attachInterrupt(digitalPinToInterrupt(PC14), InteruptAmps, FALLING);
+  attachInterrupt(digitalPinToInterrupt(PC14), InteruptAmps, FALLING); //LOW or RISING or CHANGE
   attachInterrupt(digitalPinToInterrupt(PC15), InteruptOhms, FALLING);
 }
 
 
 
-
 //Repeated code loop (allows the processor to continue opperating without needing manueal reset)
 void loop() {
-  
-  LedBlink();
+  //LedBlink();
   offset = 0;//calFunc();
   displayADC(configTemp, config2Temp, offset);
-  
+  LedBlink();
   //for faster run time and refresh, setup range and only change and run code for it if range changes
   // i.e. seperate range and measurement function calling
 }
@@ -106,7 +118,6 @@ void InteruptVolts()
   {
     configTemp = 1; //sets measure function 
     config2Temp = 1; //sets starting range for autoranging
-    display1 = 1; //sets screen to DisplayADC
   }
   else if(config2Temp != 4)
   {
@@ -122,7 +133,6 @@ void InteruptVolts()
 
 
 
-
 //amps button response
 void InteruptAmps()
 {
@@ -131,7 +141,7 @@ void InteruptAmps()
   {
     configTemp = 2; //sets measure function 
     config2Temp = 1; //sets starting range for autoranging
-    display1 = 1; //sets screen to DisplayADC
+
   }
   else
   {
@@ -157,7 +167,6 @@ void InteruptOhms()
   {
     configTemp = 3; //sets measure function 
     config2Temp = 1; //sets starting range for autoranging
-    display1 = 1; //sets screen to DisplayADC
   }
   else
   {
@@ -171,10 +180,10 @@ void InteruptOhms()
   }
 }
 
+//Interupt HELL
 void InteruptBoot1()
 {
-  slopeCalc();
-  calVar = 2;
+  test = 1;
 }
 
 

@@ -11,7 +11,8 @@
 extern Adafruit_SSD1306 display; //becasue "display" is defined in screenDisplay but also needs to be defined here, we can use and extern to define it I guess?
 double val2 = 0; //random var
 int calRange = 0; //sets cal range for all functions in this file
-int calRangeTemp = 0; //sets cal range for all functions in this file
+int calRangeTemp = 1; //sets cal range for all functions in this file
+
 
 
 double calFunc(void)
@@ -21,6 +22,8 @@ double calFunc(void)
     return(val2);
 }
 
+
+
 void slopeCalc(void)
 {
     //intrupt creation
@@ -28,31 +31,26 @@ void slopeCalc(void)
 
     double slopeData[5];
     double Vin = 0;
-    double calV05 = 0.50000; //enough zeros to see 10uV range, ideal accuracy is only 50uv per step
-    double calV1 = 1.00000;
-    double calV15 = 1.50000;
-    double calV2 = 2.00000;
-    double calV25 = 2.50000;
-    
+
     while(calRange < 5)
     {
-        delay(3000);
-        display.setTextSize(2);      // Normal 1:1 pixel scale = 3
-        display.setTextColor(WHITE);
-        display.setCursor(0, 0);
-        display.clearDisplay();
-        display.print("Set volts = ");
-        display.print("0.500000");
-        display.display();
 
         switch(calRangeTemp)
-        {
-            case 1:
+        {   case 1:
+            display.setTextSize(2);      // Normal 1:1 pixel scale = 3
+            display.setTextColor(WHITE);
+            display.setCursor(0, 0);
+            display.clearDisplay();
+            display.print("Set volts = ");
+            display.print("0.500000");
+            display.display();
+
+            case 2:
             //measure input voltage
             Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
             delay(1000);
             //Input voltage = 0.5V
-            slopeData[0] = Vin - calV05;
+            slopeData[0] = Vin - 0.50000;
             display.clearDisplay();
             display.setCursor(0, 0);
             display.print("Set volts = ");
@@ -60,12 +58,12 @@ void slopeCalc(void)
             display.display();
             calRangeTemp = 0;
             break;
-            case 2:
+            case 3:
             //measure input voltage
             Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
             delay(1000);
             //Input voltage = 1V
-            slopeData[1] = Vin - calV1;
+            slopeData[1] = Vin - 1.00000;
             display.clearDisplay();
             display.setCursor(0, 0);
             display.print("Set volts = ");
@@ -73,12 +71,12 @@ void slopeCalc(void)
             display.display();
             calRangeTemp = 0;
             break;
-            case 3:
+            case 4:
             //measure input voltage
             Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
             delay(1000);
             //Input voltage = 1.5V
-            slopeData[2] = Vin - calV15;
+            slopeData[2] = Vin - 1.50000;
             display.clearDisplay();
             display.setCursor(0, 0);
             display.print("Set volts = ");
@@ -86,12 +84,12 @@ void slopeCalc(void)
             display.display();
             calRangeTemp = 0;
             break;
-            case 4:
+            case 5:
             //measure input voltage
             Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
             delay(1000);
             //Input voltage = 2V
-            slopeData[3] = Vin - calV2;
+            slopeData[3] = Vin - 2.00000;
             display.clearDisplay();
             display.setCursor(0, 0);
             display.print("Set volts = ");
@@ -99,18 +97,17 @@ void slopeCalc(void)
             display.display();
             calRangeTemp = 0;
             break;
-            case 5: //Hint: 2V range can measure up to 3V due to 3V ref
+            case 6: //Hint: 2V range can measure up to 3V due to 3V ref
             //measure input voltage
             Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
             delay(1000);
             //Input voltage = 2.5V
-            slopeData[4] = Vin - calV25;
+            slopeData[4] = Vin - 2.50000;
             display.clearDisplay();
             display.setCursor(0, 0);
             display.print("Cal Compleate");
             display.display();
             calRangeTemp = 0;
-            delay(3000);
             break;
         }
     }
@@ -129,15 +126,14 @@ void InteruptCal1()
     display.print("Cal Range");
     display.print("Compleate");
     display.display();
-    delay(1000);
-    calRangeTemp = calRange;
+    calRangeTemp = calRange + 1;
   }
   else
   {
     calRange = 1;
-    calRangeTemp = calRange;
+    calRangeTemp = calRange + 1;
   }
-
+ 
 }
 void InteruptCal2()
 {

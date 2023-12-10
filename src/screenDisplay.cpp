@@ -31,16 +31,21 @@ void bootScreen()
         delay(100);
     } // Don't proceed, loop forever
     }
+
+     //Interupt HELL???
     display.clearDisplay();
     display.setTextSize(2);      // Normal 1:1 pixel scale = 3
     display.setTextColor(WHITE); // Draw white text
     display.setCursor(0, 0);
+
+    
     display.print("CalScreen:");
     display.print("\n");
     display.print("Volts=Cal");
     display.print("\n");
     display.print("Amps=Meas");
     display.display();
+   
 }
 
 
