@@ -2,22 +2,17 @@
 #include <Arduino.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-
-
 //I2C setup
 #include <Wire.h>
-
 //import files
 #include "measure.hpp"
 #include "cal.hpp"
 #include "screenDisplay.hpp"
-
 //function declarations
 void LedBlink(void);
 void InteruptVolts(void);
 void InteruptAmps(void);
 void InteruptOhms(void);
-
 //variable declarations
 double digitalValue = 0.00;// variable to store the value coming from the sensor
 int configTemp = 0; //tells displayADC which mode is used
@@ -28,85 +23,58 @@ int display1 = 0; //triggers adc display and home screen clear
 
 
 
-
-
 //One time executed code
 void setup() {
-  
   //cals func to setup MCU clock settings
   SystemClock_Config();
-  
   //sets up I2C pins
   Wire.setSDA(PB7);
   Wire.setSCL(PB6); 
   Wire.begin();
-
-  //from display.cpp
-  analogReadResolution(16); //set bit count of ADC
-  
-
-  bootScreen();
-  //press volts for cal
-  //press nothing and wait for a delay before moving on, may need move on button
-
-
+ //set bit count of ADC
+  analogReadResolution(16); 
   //button push interupt setup
   pinMode(PC13, INPUT_PULLUP); //enables PC13 pullup resistor
   pinMode(PC14, INPUT_PULLUP);
   pinMode(PC15, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(PC13), InteruptVolts, FALLING); //triggers interuptVolts function if PC13 goes low (triggers on falling edge)
-  attachInterrupt(digitalPinToInterrupt(PC14), InteruptAmps, FALLING);
-  attachInterrupt(digitalPinToInterrupt(PC15), InteruptOhms, FALLING);
-
   //setup test LED
   pinMode(PA15, OUTPUT);
-
-  //voltage opto gpio's
+  //voltage opto gpio setup
   pinMode(PA0, OUTPUT); //200v range divider
   pinMode(PA1, OUTPUT); //200v range
   pinMode(PA2, OUTPUT); //10v range
   pinMode(PA3, OUTPUT); //2v range
   pinMode(PA4, OUTPUT); //master
-
+  //turns off ohms function, adding interferance to measurements
   pinMode(PA6, OUTPUT); //ohms
   digitalWrite(PA6, HIGH);
-  
+
+
+
+  //start boot screen
+  bootScreen();
+  calScreen();
+
+  //measuremnet interupt setup (reuses the cal interupt gpio pins(buttons))
+  attachInterrupt(digitalPinToInterrupt(PC13), InteruptVolts, FALLING); //triggers interuptVolts function if PC13 goes low (triggers on falling edge)
+  attachInterrupt(digitalPinToInterrupt(PC14), InteruptAmps, FALLING);
+  attachInterrupt(digitalPinToInterrupt(PC15), InteruptOhms, FALLING);
 }
-
-
-
-
-
 
 
 
 
 //Repeated code loop (allows the processor to continue opperating without needing manueal reset)
 void loop() {
-
   LedBlink();
-
-  offset = cal();
-
+  offset = calFunc();
   if(display1 == 1) //screen selection
   {
     displayADC(configTemp, config2Temp, offset);
   }
-  
-
   //for faster run time and refresh, setup range and only change and run code for it if range changes
   // i.e. seperate range and measurement function calling
-
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -114,27 +82,18 @@ void loop() {
 void LedBlink()
 {
   digitalWrite(PA15, HIGH);
-
   delay(30);
-
   digitalWrite(PA15, LOW);
-
   delay(30);
 }
+
 
 
 //volts button response
 void InteruptVolts()
 {
-
   //resets range after conpleating a full sweep
   //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
-  if( config2Temp == 4)
-  {
-    config2Temp = 1;
-  }
-
-  
   //itterate each time the button is pressed unless a diffrent fuction has been selected
   if(configTemp != 1)
   {
@@ -142,15 +101,20 @@ void InteruptVolts()
     config2Temp = 1; //sets starting range for autoranging
     display1 = 1; //sets screen to DisplayADC
   }
-  else
+  else if(config2Temp != 4)
   {
     config2Temp = config2Temp + 1;
   }
-
-
+  else
+  {
+    config2Temp = 1;
+  }
   //testing on 2V range
   //config2Temp = 3; //sets starting range for autoranging
 }
+
+
+
 
 //amps button response
 void InteruptAmps()
@@ -166,7 +130,6 @@ void InteruptAmps()
   {
     config2Temp = config2Temp + 1;
   }
-
   //resets range after conpleating a full sweep
   //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
   if( config2Temp == 5)
@@ -174,6 +137,10 @@ void InteruptAmps()
     config2Temp = 1;
   }
 }
+
+
+
+
 
 //ohms button response
 void InteruptOhms()
@@ -189,7 +156,6 @@ void InteruptOhms()
   {
     config2Temp = config2Temp + 1;
   }
-
   //resets range after conpleating a full sweep
   //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
   if( config2Temp == 5)
@@ -197,8 +163,6 @@ void InteruptOhms()
     config2Temp = 1;
   }
 }
-
-
 
 
 
@@ -236,3 +200,4 @@ extern "C" void SystemClock_Config(void)
     Error_Handler();
   }
 }
+

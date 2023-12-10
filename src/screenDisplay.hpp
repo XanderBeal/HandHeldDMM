@@ -2,5 +2,6 @@
 #define screenDisplay_hpp
 
 void bootScreen();
+void calScreen();
 
 #endif
