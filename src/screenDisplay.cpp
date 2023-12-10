@@ -11,11 +11,12 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #include "measure.hpp"
+#include "screenDisplay.hpp"
 #include "cal.hpp"
 void InteruptBoot1(void);
 void InteruptBoot2(void);
-int choice2 = 0; //var for boot screen decition
-int choice1 = 1;
+//int choice2 = 0; //var for boot screen decition
+
 
 void bootScreen()
 {
@@ -30,49 +31,19 @@ void bootScreen()
         delay(100);
     } // Don't proceed, loop forever
     }
-}
-
-void calScreen()
-{
     display.clearDisplay();
     display.setTextSize(2);      // Normal 1:1 pixel scale = 3
     display.setTextColor(WHITE); // Draw white text
-    display.setCursor(0, 0);     // Start at top-left corner
+    display.setCursor(0, 0);
     display.print("CalScreen:");
     display.print("\n");
     display.print("Volts=Cal");
     display.print("\n");
     display.print("Amps=Meas");
-
-    attachInterrupt(digitalPinToInterrupt(PC13), InteruptBoot1, FALLING); //triggers interupt function if PC13 goes low (triggers on falling edge)
-    attachInterrupt(digitalPinToInterrupt(PC14), InteruptBoot2, FALLING);
-    
-    while(choice1 = 1)
-    {
-        if(choice2 = 1)
-        {
-            display.clearDisplay();
-            //slopeCalc();
-            choice1 = 0;
-        }
-        else if(choice2 = 2)
-        {
-            display.clearDisplay();
-            choice1 = 0;
-        }
-        
-    }
-    
+    display.display();
 }
 
-void InteruptBoot1()
-{
-  choice2 = 1;
-}
-void InteruptBoot2()
-{
-  choice2 = 2;
-}
+
 
 
 /*

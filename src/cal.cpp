@@ -21,12 +21,10 @@ double calFunc(void)
     return(val2);
 }
 
-double slopeCalc(void)
+void slopeCalc(void)
 {
     //intrupt creation
-    attachInterrupt(digitalPinToInterrupt(PC13), InteruptCal1, FALLING); //triggers interupt function if PC13 goes low (triggers on falling edge)
-    attachInterrupt(digitalPinToInterrupt(PC14), InteruptCal2, FALLING);
-    attachInterrupt(digitalPinToInterrupt(PC15), InteruptCal3, FALLING);
+    attachInterrupt(digitalPinToInterrupt(PC15), InteruptCal1, FALLING);
 
     double slopeData[5];
     double Vin = 0;
@@ -116,8 +114,6 @@ double slopeCalc(void)
             break;
         }
     }
-
-    return(0);
 }
 
 //cycle through cal ranges and display needed input voltage for range cal

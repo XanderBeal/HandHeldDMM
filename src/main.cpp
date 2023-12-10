@@ -19,7 +19,9 @@ int configTemp = 0; //tells displayADC which mode is used
 int config2Temp = 0; //tells displayADC which range is used
 double offset = 0; //offset value for measurement cal
 int display1 = 0; //triggers adc display and home screen clear
-
+int choice = 0; //var for boot screen decition
+int calVar = 0;
+int test = 0;
 
 
 
@@ -49,12 +51,18 @@ void setup() {
   pinMode(PA6, OUTPUT); //ohms
   digitalWrite(PA6, HIGH);
 
-
-
+  attachInterrupt(digitalPinToInterrupt(PC13), InteruptBoot1, FALLING); //triggers interupt function if PC13 goes low (triggers on falling edge)
+  attachInterrupt(digitalPinToInterrupt(PC14), InteruptBoot2, FALLING);
   //start boot screen
   bootScreen();
-  calScreen();
 
+  while(calVar < 1)
+  {
+    test = test + 1;
+  }
+
+//calScreen(choice); /////need to continuously call teh function to allow the variable being sent to change
+ 
   //measuremnet interupt setup (reuses the cal interupt gpio pins(buttons))
   attachInterrupt(digitalPinToInterrupt(PC13), InteruptVolts, FALLING); //triggers interuptVolts function if PC13 goes low (triggers on falling edge)
   attachInterrupt(digitalPinToInterrupt(PC14), InteruptAmps, FALLING);
@@ -66,12 +74,11 @@ void setup() {
 
 //Repeated code loop (allows the processor to continue opperating without needing manueal reset)
 void loop() {
+  
   LedBlink();
-  offset = calFunc();
-  if(display1 == 1) //screen selection
-  {
-    displayADC(configTemp, config2Temp, offset);
-  }
+  offset = 0;//calFunc();
+  displayADC(configTemp, config2Temp, offset);
+  
   //for faster run time and refresh, setup range and only change and run code for it if range changes
   // i.e. seperate range and measurement function calling
 }
@@ -164,6 +171,17 @@ void InteruptOhms()
   }
 }
 
+void InteruptBoot1()
+{
+  slopeCalc();
+  calVar = 2;
+}
+
+
+void InteruptBoot2()
+{
+  calVar = 2;
+}
 
 
 
