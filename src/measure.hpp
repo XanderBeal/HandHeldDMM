@@ -10,4 +10,3 @@ void ohmsMeas(int config2, double offset);  //continuity included?
 void displayPostfix(int config, int config2);
 
 #endif
-

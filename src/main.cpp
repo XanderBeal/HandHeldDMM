@@ -53,6 +53,7 @@ void setup()
   //turns off ohms function, adding interferance to measurements
   //Ohms Opto GPIO setup
   pinMode(PA6, OUTPUT); //ohms
+  pinMode(PA12, OUTPUT); //master Ohms control
   digitalWrite(PA6, HIGH);
 
   //Interupt HELL

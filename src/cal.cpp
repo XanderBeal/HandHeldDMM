@@ -31,7 +31,7 @@ void slopeCalc(void)
 
     double slopeData[5];
     double Vin = 0;
-
+    //data gathering and UI
     while(calRange < 5)
     {
 
@@ -111,6 +111,9 @@ void slopeCalc(void)
             break;
         }
     }
+
+    
+
 }
 
 //cycle through cal ranges and display needed input voltage for range cal

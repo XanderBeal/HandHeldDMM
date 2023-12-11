@@ -58,7 +58,7 @@ double voltsMeas(int config2, double offset)
   double val2 = 0; //adc readings
   double Vin = 0;
   double refVoltage = 3.000; //needs cal'ed
-  int avgNum = 5; //number of readings to be averaged for displayed reading
+  int avgNum = 50; //number of readings to be averaged for displayed reading
   //Master volts control
   digitalWrite(PA4, HIGH); //ADCOpto2 (input to buffer)
   display.clearDisplay();
@@ -68,11 +68,12 @@ double voltsMeas(int config2, double offset)
     //delay between measuremnets
     //delay(5);
     //set adc pin and add measurement to average total
-    val += analogRead(PB0);
+    val += analogRead(PB0)* 1.173125;//linear offset correction
    }
   //create the average
   val2 = val / avgNum;
   Vin = ((val2 / 65535.00) * refVoltage) * rangeMult + offset;
+  //Vin = Vin * 1.173125; //linear offset correction
   //screen setup
   display.setTextSize(2);      // Normal 1:1 pixel scale = 3
   display.setTextColor(WHITE);
@@ -111,7 +112,7 @@ void voltsRange(int config2)
     //start on highest range for range sweping 
     case 1: //200V
       rangeMult = 100;
-      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
+      digitalWrite(PA10, LOW); //ADCOpto1 (10A)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
       digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
       digitalWrite(PA2, LOW); //ADCOpto4 (10V)
@@ -121,7 +122,7 @@ void voltsRange(int config2)
     break;
     case 2: //10V
       rangeMult = 5;
-      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
+      digitalWrite(PA10, LOW); //ADCOpto1 (10A)
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
       digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
@@ -131,7 +132,7 @@ void voltsRange(int config2)
     break;
     case 3: //2V
       rangeMult = 1;
-      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
+      digitalWrite(PA10, LOW); //ADCOpto1 (10A)
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
       digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
@@ -141,7 +142,7 @@ void voltsRange(int config2)
     break;
     case 4: //200mV
       rangeMult = 100;
-      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
+      digitalWrite(PA10, LOW); //ADCOpto1 (10A)
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA2, LOW); //ADCOpto4 (10V)
       digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
