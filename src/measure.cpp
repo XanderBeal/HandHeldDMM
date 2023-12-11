@@ -29,11 +29,13 @@ void displayADC(int config, int config2, double offset)
       voltsRange(config2); //set range
       voltsMeas(config2, offset);  //take and display measurement 
     case 2:
+      config2 = 1;
       ampsRange(config2); //set range
-      ampsMeas(config2, offset);  //take and display measurement
+      config2 = 4;
+      voltsMeas(config2, offset);  //take and display measurement 
     case 3:
       ohmsRange(config2); //set range
-      ohmsMeas(config2, offset);  //take and display measurement
+      voltsMeas(config2, offset);  //take and display measurement 
       break;
   }
   //update the display
@@ -152,8 +154,9 @@ void ampsRange(int config2)
       digitalWrite(PA2, LOW); //ADCOpto4 (10V)
       digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
       delay(10); //give time for optos to close
-      //comented out for ADC safty
-      //digitalWrite(PA1, HIGH); //ADCOpto5 (200mV)
+      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
+      digitalWrite(PA1, HIGH); //ADCOpto5 (200mV)
+      digitalWrite(PB4, HIGH); //ADCOptoNew (200mV) output
     break;
   }
 }

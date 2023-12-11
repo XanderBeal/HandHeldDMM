@@ -48,7 +48,10 @@ void setup()
   pinMode(PA2, OUTPUT); //10v range
   pinMode(PA3, OUTPUT); //2v range
   pinMode(PA4, OUTPUT); //master
+  //amps Opto GPIO setup
+  pinMode(PA10, OUTPUT); //1A AOpt02
   //turns off ohms function, adding interferance to measurements
+  //Ohms Opto GPIO setup
   pinMode(PA6, OUTPUT); //ohms
   digitalWrite(PA6, HIGH);
 
