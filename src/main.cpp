@@ -49,7 +49,7 @@ void setup()
   pinMode(PA3, OUTPUT); //2v range
   pinMode(PA4, OUTPUT); //master
   //amps Opto GPIO setup
-  pinMode(PA10, OUTPUT); //1A AOpt02
+  //pinMode(PA10, OUTPUT); //1A AOpt02
   //turns off ohms function, adding interferance to measurements
   //Ohms Opto GPIO setup
   pinMode(PA6, OUTPUT); //ohms
@@ -140,23 +140,8 @@ void InteruptVolts()
 //amps button response
 void InteruptAmps()
 {
-  //itterate each time the button is pressed unless a diffrent fuction has been selected
-  if(configTemp != 2)
-  {
-    configTemp = 2; //sets measure function 
-    config2Temp = 1; //sets starting range for autoranging
-
-  }
-  else
-  {
-    config2Temp = config2Temp + 1;
-  }
-  //resets range after conpleating a full sweep
-  //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
-  if( config2Temp == 5)
-  {
-    config2Temp = 1;
-  }
+  configTemp = 2;
+  config2Temp = 4;
 }
 
 
@@ -166,22 +151,7 @@ void InteruptAmps()
 //ohms button response
 void InteruptOhms()
 {
-  //itterate each time the button is pressed unless a diffrent fuction has been selected
-  if(configTemp != 3)
-  {
-    configTemp = 3; //sets measure function 
-    config2Temp = 1; //sets starting range for autoranging
-  }
-  else
-  {
-    config2Temp = config2Temp + 1;
-  }
-  //resets range after conpleating a full sweep
-  //  - fix so full sweep not required (tOuCh sCrEeN yEt?????????)
-  if( config2Temp == 5)
-  {
-    config2Temp = 1;
-  }
+
 }
 
 //Interupt HELL

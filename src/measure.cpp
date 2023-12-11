@@ -28,15 +28,20 @@ void displayADC(int config, int config2, double offset)
       //volts 
       voltsRange(config2); //set range
       voltsMeas(config2, offset);  //take and display measurement 
+      //config = 0;
+    break;
     case 2:
       config2 = 1;
       ampsRange(config2); //set range
       config2 = 4;
       voltsMeas(config2, offset);  //take and display measurement 
+      //config = 0;
+    break;
     case 3:
       ohmsRange(config2); //set range
       voltsMeas(config2, offset);  //take and display measurement 
-      break;
+      config = 0;
+    break;
   }
   //update the display
   display.display();
@@ -106,6 +111,7 @@ void voltsRange(int config2)
     //start on highest range for range sweping 
     case 1: //200V
       rangeMult = 100;
+      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
       digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
       digitalWrite(PA2, LOW); //ADCOpto4 (10V)
@@ -115,6 +121,7 @@ void voltsRange(int config2)
     break;
     case 2: //10V
       rangeMult = 5;
+      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
       digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
@@ -124,6 +131,7 @@ void voltsRange(int config2)
     break;
     case 3: //2V
       rangeMult = 1;
+      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
       digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
@@ -133,6 +141,7 @@ void voltsRange(int config2)
     break;
     case 4: //200mV
       rangeMult = 100;
+      digitalWrite(PA10, HIGH); //ADCOpto1 (10A)
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA2, LOW); //ADCOpto4 (10V)
       digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
