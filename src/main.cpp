@@ -43,7 +43,8 @@ void setup()
   pinMode(PA15, OUTPUT);
   //voltage opto gpio setup
   pinMode(PA0, OUTPUT); //200v range divider
-  pinMode(PA1, OUTPUT); //200v range
+  pinMode(PA1, OUTPUT); //200mv range
+  pinMode(PB4, OUTPUT); //200mv range opamp output
   pinMode(PA2, OUTPUT); //10v range
   pinMode(PA3, OUTPUT); //2v range
   pinMode(PA4, OUTPUT); //master

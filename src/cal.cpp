@@ -27,7 +27,7 @@ double calFunc(void)
 void slopeCalc(void)
 {
     //intrupt creation
-    attachInterrupt(digitalPinToInterrupt(PC15), InteruptCal1, FALLING);
+    attachInterrupt(digitalPinToInterrupt(PC15), InteruptCal1, LOW);
 
     double slopeData[5];
     double Vin = 0;
@@ -44,7 +44,7 @@ void slopeCalc(void)
             display.print("Set volts = ");
             display.print("0.500000");
             display.display();
-
+            break;
             case 2:
             //measure input voltage
             Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
@@ -56,7 +56,7 @@ void slopeCalc(void)
             display.print("Set volts = ");
             display.print("1.00000");
             display.display();
-            calRangeTemp = 0;
+            //calRangeTemp = 0;
             break;
             case 3:
             //measure input voltage
@@ -69,7 +69,7 @@ void slopeCalc(void)
             display.print("Set volts = ");
             display.print("1.50000");
             display.display();
-            calRangeTemp = 0;
+            //calRangeTemp = 0;
             break;
             case 4:
             //measure input voltage
@@ -82,7 +82,7 @@ void slopeCalc(void)
             display.print("Set volts = ");
             display.print("2.00000");
             display.display();
-            calRangeTemp = 0;
+            //calRangeTemp = 0;
             break;
             case 5:
             //measure input voltage
@@ -95,7 +95,7 @@ void slopeCalc(void)
             display.print("Set volts = ");
             display.print("2.50000");
             display.display();
-            calRangeTemp = 0;
+            //calRangeTemp = 0;
             break;
             case 6: //Hint: 2V range can measure up to 3V due to 3V ref
             //measure input voltage
@@ -107,7 +107,7 @@ void slopeCalc(void)
             display.setCursor(0, 0);
             display.print("Cal Compleate");
             display.display();
-            calRangeTemp = 0;
+            //calRangeTemp = 0;
             break;
         }
     }

@@ -105,6 +105,7 @@ void voltsRange(int config2)
     case 1: //200V
       rangeMult = 100;
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
+      digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
       digitalWrite(PA2, LOW); //ADCOpto4 (10V)
       delay(10); //give time for optos to close
       digitalWrite(PA0, HIGH); //Vopto1 (Voltage divider input)
@@ -114,6 +115,7 @@ void voltsRange(int config2)
       rangeMult = 5;
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
+      digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
       digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
       delay(10); //give time for optos to close
       digitalWrite(PA2, HIGH); //ADCOpto4 (10V)
@@ -122,6 +124,7 @@ void voltsRange(int config2)
       rangeMult = 1;
       digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
       digitalWrite(PA1, LOW); //ADCOpto5 (200mV)
+      digitalWrite(PB4, LOW); //ADCOptoNew (200mV) output
       digitalWrite(PA2, LOW); //ADCOpto4 (10V)
       delay(10); //give time for optos to close
       digitalWrite(PA3, HIGH); //ADCOpto3 (2V 200V)
@@ -133,6 +136,7 @@ void voltsRange(int config2)
       digitalWrite(PA3, LOW); //ADCOpto3 (2V 200V)
       delay(10); //give time for optos to close
       digitalWrite(PA1, HIGH); //ADCOpto5 (200mV)
+      digitalWrite(PB4, HIGH); //ADCOptoNew (200mV) output
     break; 
   }
 }
