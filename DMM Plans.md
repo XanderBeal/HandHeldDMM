@@ -5,7 +5,7 @@ Code To-Do
 
 
 
-
+- lieing about 16 bit res??
 
 
 

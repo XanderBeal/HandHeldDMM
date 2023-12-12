@@ -9,133 +9,77 @@
 //display setup
 #include "screenDisplay.hpp"
 extern Adafruit_SSD1306 display; //becasue "display" is defined in screenDisplay but also needs to be defined here, we can use and extern to define it I guess?
-double val2 = 0; //random var
-int calRange = 0; //sets cal range for all functions in this file
-int calRangeTemp = 1; //sets cal range for all functions in this file
 
+int i = 0; //loop control variable
 
-
-double calFunc(void)
+//slope averaging function
+double slopeCalc() 
 {
-    val2 = 0.00;
+  //attachInterrupt(digitalPinToInterrupt(PC15), InteruptCal1, FALLING);
+  double points[5][2];
+  double totalSlope = 0.0; //all calculated slopes, pre-average
+  //int length = sizeof(points) / sizeof(points[0]);
+  double deltaX = 0; //math variable
+  double deltaY = 0; //math variable
+  double avgSlope = 0.0; //final calculated a
 
-    return(val2);
-}
+  // display.clearDisplay();
+  // display.setCursor(0, 0);
+  // display.print("Set volts = ");
+  // display.print("0.500000");
+  // display.display();
+  // while(digitalRead(PC15) == HIGH)
+  // {
 
-
-
-void slopeCalc(void)
-{
-    //intrupt creation
-    attachInterrupt(digitalPinToInterrupt(PC15), InteruptCal1, LOW);
-
-    double slopeData[5];
-    double Vin = 0;
-    //data gathering and UI
-    while(calRange < 5)
+  // }
+  voltsRange(3);
+  //gathers 5 data points to create the slope average from
+  for (int x = 0; x < 5; x++)
+  {
+  
+    //filling points array
+    points[x][0] = 0.5 * (x + 1); //voltage value
+    points[x][1] = voltsMeas(3,1.0); //assignes collected avgerage voltage value for 2 v range to array
+    //display next voltage 
+    display.clearDisplay();
+    delay(50);
+    display.setCursor(0, 0);
+    display.print("Set volts = ");
+    display.print(points[x][1]);
+    display.display();
+    //delay for button input
+    while(digitalRead(PC15) == HIGH)
     {
-
-        switch(calRangeTemp)
-        {   case 1:
-            display.setTextSize(2);      // Normal 1:1 pixel scale = 3
-            display.setTextColor(WHITE);
-            display.setCursor(0, 0);
-            display.clearDisplay();
-            display.print("Set volts = ");
-            display.print("0.500000");
-            display.display();
-            break;
-            case 2:
-            //measure input voltage
-            Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
-            delay(1000);
-            //Input voltage = 0.5V
-            slopeData[0] = Vin - 0.50000;
-            display.clearDisplay();
-            display.setCursor(0, 0);
-            display.print("Set volts = ");
-            display.print("1.00000");
-            display.display();
-            //calRangeTemp = 0;
-            break;
-            case 3:
-            //measure input voltage
-            Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
-            delay(1000);
-            //Input voltage = 1V
-            slopeData[1] = Vin - 1.00000;
-            display.clearDisplay();
-            display.setCursor(0, 0);
-            display.print("Set volts = ");
-            display.print("1.50000");
-            display.display();
-            //calRangeTemp = 0;
-            break;
-            case 4:
-            //measure input voltage
-            Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
-            delay(1000);
-            //Input voltage = 1.5V
-            slopeData[2] = Vin - 1.50000;
-            display.clearDisplay();
-            display.setCursor(0, 0);
-            display.print("Set volts = ");
-            display.print("2.00000");
-            display.display();
-            //calRangeTemp = 0;
-            break;
-            case 5:
-            //measure input voltage
-            Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
-            delay(1000);
-            //Input voltage = 2V
-            slopeData[3] = Vin - 2.00000;
-            display.clearDisplay();
-            display.setCursor(0, 0);
-            display.print("Set volts = ");
-            display.print("2.50000");
-            display.display();
-            //calRangeTemp = 0;
-            break;
-            case 6: //Hint: 2V range can measure up to 3V due to 3V ref
-            //measure input voltage
-            Vin = voltsMeas(2,0); //sets range to 2V and offset to zero (for now)
-            delay(1000);
-            //Input voltage = 2.5V
-            slopeData[4] = Vin - 2.50000;
-            display.clearDisplay();
-            display.setCursor(0, 0);
-            display.print("Cal Compleate");
-            display.display();
-            //calRangeTemp = 0;
-            break;
-        }
     }
+    delay(1000);
+  }
 
-    
 
-}
+
+  //itterates through the points array and calculates the slop between each adjacent points in the array
+  for (int i = 0; i < 5 - 2; i++) {
+    deltaX = points[i + 1][0] - points[i][0];
+    deltaY = points[i + 1][1] - points[i][1];
+    if (deltaX != 0) {
+      totalSlope += deltaY / deltaX;
+    }
+  }
+  //creates final average slope
+  avgSlope = totalSlope / (5 - 1);
+
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.print("Cal value:");
+  display.print("\n");
+  display.print(avgSlope);
+  display.display();
+
+  return (avgSlope);
+  }
 
 //cycle through cal ranges and display needed input voltage for range cal
 void InteruptCal1()
 {
-  if(calRange < 5 && calRange != 0)
-  {
-    calRange = calRange + 1;
-    display.clearDisplay();
-    display.setTextSize(2);      // Normal 1:1 pixel scale = 3
-    display.setTextColor(WHITE);
-    display.setCursor(0, 0);
-    display.print("Cal Range");
-    display.print("Compleate");
-    display.display();
-    calRangeTemp = calRange + 1;
-  }
-  else
-  {
-    calRange = 1;
-    calRangeTemp = calRange + 1;
-  }
  
 }
 void InteruptCal2()

@@ -8,6 +8,8 @@
 #include "measure.hpp"
 #include "cal.hpp"
 #include "screenDisplay.hpp"
+
+//#define ADC_RESOLUTION_16B
 //function declarations
 void LedBlink(void);
 void InteruptVolts(void);
@@ -21,6 +23,8 @@ double offset = 0; //offset value for measurement cal
 
 int calVar = 0;
 int test = 0;
+
+float slopeAvg = 1; //average slope from slopeCalc
 
 
 
@@ -73,14 +77,14 @@ void setup()
     if(test == 1)
     {
       //LedBlink();
-      slopeCalc();
+      slopeAvg = slopeCalc();
       calVar = 1;
     }
   }
 
 
 
-  //calScreen(choice); /////need to continuously call teh function to allow the variable being sent to change
+  //calScreen(choice); /////need to continuously call the function to allow the variable being sent to change
   delay(1000);
   //measuremnet interupt setup (reuses the cal interupt gpio pins(buttons))
   attachInterrupt(digitalPinToInterrupt(PC13), InteruptVolts, FALLING); //triggers interuptVolts function if PC13 goes low (triggers on falling edge)
@@ -93,8 +97,8 @@ void setup()
 //Repeated code loop (allows the processor to continue opperating without needing manueal reset)
 void loop() {
   //LedBlink();
-  offset = 0;//calFunc();
-  displayADC(configTemp, config2Temp, offset);
+
+  displayADC(configTemp, config2Temp, slopeAvg);
   LedBlink();
   //for faster run time and refresh, setup range and only change and run code for it if range changes
   // i.e. seperate range and measurement function calling

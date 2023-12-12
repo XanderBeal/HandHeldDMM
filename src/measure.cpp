@@ -17,7 +17,7 @@ double rangeMult = 1; //multiplier to acount for range on display
 
 //main function, dictates all ADC function related control
 //  - take ADC measurement, display measure screen
-void displayADC(int config, int config2, double offset) 
+void displayADC(int config, int config2, double slopeAvg) 
 { 
   //clear display
   display.clearDisplay();
@@ -27,19 +27,19 @@ void displayADC(int config, int config2, double offset)
     case 1:
       //volts 
       voltsRange(config2); //set range
-      voltsMeas(config2, offset);  //take and display measurement 
+      voltsMeas(config2, slopeAvg);  //take and display measurement 
       //config = 0;
     break;
     case 2:
       config2 = 1;
       ampsRange(config2); //set range
       config2 = 4;
-      voltsMeas(config2, offset);  //take and display measurement 
+      voltsMeas(config2, slopeAvg);  //take and display measurement 
       //config = 0;
     break;
     case 3:
       ohmsRange(config2); //set range
-      voltsMeas(config2, offset);  //take and display measurement 
+      voltsMeas(config2, slopeAvg);  //take and display measurement 
       config = 0;
     break;
   }
@@ -49,9 +49,8 @@ void displayADC(int config, int config2, double offset)
 
 
 
-
 //takes measurement and does convertion to displayable value
-double voltsMeas(int config2, double offset)
+double voltsMeas(int config2, double slopeAvg)
 {
   //func variable declarations
   double val = 0; //adc readings
@@ -61,20 +60,30 @@ double voltsMeas(int config2, double offset)
   int avgNum = 50; //number of readings to be averaged for displayed reading
   //Master volts control
   digitalWrite(PA4, HIGH); //ADCOpto2 (input to buffer)
-  display.clearDisplay();
+
+
+
+
+
   //measurements collection for averaging 
   for(int x = 0; x < avgNum; x++) //5000 readings 
   {
-    //delay between measuremnets
-    //delay(5);
     //set adc pin and add measurement to average total
-    val += analogRead(PB0)* 1.173125;//linear offset correction
+    val += analogRead(PB0);//0 - 65535.00
    }
+
+
+
   //create the average
   val2 = val / avgNum;
-  Vin = ((val2 / 65535.00) * refVoltage) * rangeMult + offset;
-  //Vin = Vin * 1.173125; //linear offset correction
+  Vin = ((val2 / 65535.00) * refVoltage) * rangeMult;
+  //Vin = Vin / 0.88;
+  Vin = Vin / slopeAvg; //linear gain error correction
+
+
+
   //screen setup
+  display.clearDisplay();
   display.setTextSize(2);      // Normal 1:1 pixel scale = 3
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
@@ -86,13 +95,19 @@ double voltsMeas(int config2, double offset)
   //displayPostfix(config, config2); //display V / A / Ohms
   display.display();
 
+
+
   return(Vin); //does this mess up uses where return is not assigned to variable???
 }
+
+
 
 void ampsMeas(int config2, double offset)
 {
 
 }
+
+
 
 void ohmsMeas(int config2, double offset)
 {
