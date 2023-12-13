@@ -23,29 +23,31 @@ double slopeCalc()
   double deltaY = 0; //math variable
   double avgSlope = 0.0; //final calculated a
 
-  // display.clearDisplay();
-  // display.setCursor(0, 0);
-  // display.print("Set volts = ");
-  // display.print("0.500000");
-  // display.display();
-  // while(digitalRead(PC15) == HIGH)
-  // {
+  points[0][0] = 0.5;
+  display.clearDisplay();
+  display.setCursor(0, 0);
+  display.print("Set volts = ");
+  display.print("0.50");
+  display.display();
+  while(digitalRead(PC15) == HIGH)
+  {
 
-  // }
+  }
   voltsRange(3);
   //gathers 5 data points to create the slope average from
-  for (int x = 0; x < 5; x++)
+  for (int x = 0; x < 4; x++)
   {
   
     //filling points array
-    points[x][0] = 0.5 * (x + 1); //voltage value
+    points[x + 1][0] = (0.5 * double(x + 1)) + 0.5 ; //voltage value for next range
     points[x][1] = voltsMeas(3,1.0); //assignes collected avgerage voltage value for 2 v range to array
+    delay(500); //pause to see measurement
     //display next voltage 
     display.clearDisplay();
     delay(50);
     display.setCursor(0, 0);
     display.print("Set volts = ");
-    display.print(points[x][1]);
+    display.print(points[x + 1][0]);
     display.display();
     //delay for button input
     while(digitalRead(PC15) == HIGH)
@@ -57,12 +59,11 @@ double slopeCalc()
 
 
   //itterates through the points array and calculates the slop between each adjacent points in the array
-  for (int i = 0; i < 5 - 2; i++) {
+  for (int i = 0; i < (5 - 2); i++) {
     deltaX = points[i + 1][0] - points[i][0];
     deltaY = points[i + 1][1] - points[i][1];
-    if (deltaX != 0) {
-      totalSlope += deltaY / deltaX;
-    }
+   
+    totalSlope += deltaX / deltaY;
   }
   //creates final average slope
   avgSlope = totalSlope / (5 - 1);
@@ -72,6 +73,8 @@ double slopeCalc()
   display.print("Cal value:");
   display.print("\n");
   display.print(avgSlope);
+  display.print("\n");
+  display.print(points[4][1]);
   display.display();
 
   return (avgSlope);
