@@ -38,7 +38,7 @@ void setup()
   Wire.setSDA(PB7);
   Wire.setSCL(PB6); 
   Wire.begin();
- //set bit count of ADC
+  //set bit count of ADC
   analogReadResolution(16); 
   //button push interupt setup
   pinMode(PC13, INPUT_PULLUP); //enables PC13 pullup resistor
