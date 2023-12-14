@@ -3,11 +3,20 @@ Code To-Do
     - MCU? Inefficient code? Slow ADC?
 - cal function and control of cal (redefine interupt functions, one define fkor cal and another for ranges???)
 
+- define stm32F3 in stm32_def.h????????
+
+
+
 
 
 - lieing about 16 bit res??
+- YES 16 bit not defined and defulting to 12 bit resolution (4,012 vs 65,512!!!)
 
-
+- conclution, reading at 16 bits because no bit shifting in the 12 bit hexadecimal definition. 10 bits is shifted over and so is 8???
+ex: 0x1UL = 0x (hexadecimal indicator), 1 (hexadecimal value), UL (unsigned long)
+0x00000010 = 16 in hexadecimal
+0x10 = 16 in hexadecimal
+0x1 = 1 in hexadecimal
 
 
 
