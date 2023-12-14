@@ -80,7 +80,7 @@ double voltsMeas(int config2, double slopeAvg)
   //Vin = Vin / 0.88;
   Vin = Vin / slopeAvg; //linear gain error correction
 
-
+  //Vin = analogRead(PB0);
 
   //screen setup
   display.clearDisplay();
@@ -88,9 +88,12 @@ double voltsMeas(int config2, double slopeAvg)
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
   //displays on screen (value, number of digits (after decinal?))
-  display.print(Vin, 4);
+  display.print(Vin);
   display.print(" ");
   display.print(config2);
+
+
+
   //display.print(" ");
   //displayPostfix(config, config2); //display V / A / Ohms
   display.display();

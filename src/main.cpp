@@ -9,7 +9,8 @@
 #include "cal.hpp"
 #include "screenDisplay.hpp"
 
-//#define ADC_RESOLUTION_16B
+
+
 //function declarations
 void LedBlink(void);
 void InteruptVolts(void);

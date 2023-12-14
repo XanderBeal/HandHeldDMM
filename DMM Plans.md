@@ -8,7 +8,7 @@ Code To-Do
 
 
 
-
+- NOT LIEING, USER ERROR, CODE TRIES TO USE 16, but is limited by the 12 bit SAR adc, SDADC is not being configured!!!!!!!!!!
 - lieing about 16 bit res??
 - YES 16 bit not defined and defulting to 12 bit resolution (4,012 vs 65,512!!!)
 
