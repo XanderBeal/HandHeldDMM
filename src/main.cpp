@@ -160,7 +160,7 @@ void InteruptAmps()
     configTemp = 2; //sets measure function 
     config2Temp = 1; //sets starting range for autoranging
   }
-  else if(config2Temp != 4)
+  else if(config2Temp != 5)
   {
     config2Temp = config2Temp + 1;
   }

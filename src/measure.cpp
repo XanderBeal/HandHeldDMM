@@ -19,12 +19,13 @@ double rangeMult = 1; //multiplier to acount for range on display
 //  - take ADC measurement, display measure screen
 void displayADC(int config, int config2, double slopeAvg)
 { 
+  double ampsMult = 0;
   double Vin = 0;
   //volts/amps/ohms setup
   switch(config) 
   {
     case 1: //volts 
-      digitalWrite(PA10, LOW); //ADCOpto1 (Master current range)
+      digitalWrite(PA5, LOW); //ADCOpto1 (Master current range)
       digitalWrite(PA4, HIGH); //ADCOpto2 (input to buffer)
       
 
@@ -36,12 +37,9 @@ void displayADC(int config, int config2, double slopeAvg)
       digitalWrite(PA4, LOW); //ADCOpto2 (Master volts control)
       digitalWrite(PA5, HIGH); //ADCOpto1 (Master current range)
       
-      ampsRange(config2); //set range
-      voltsRange(4);
+      ampsMult = ampsRange(config2); //set range
       Vin = voltsMeas(4, slopeAvg);  //take and display measurement 
-      
-      Vin = Vin / rangeMult;
-
+      Vin = (Vin / 1000) / ampsMult; 
     break;
     case 3: //ohms
       ohmsRange(config2); //set range
@@ -56,9 +54,9 @@ void displayADC(int config, int config2, double slopeAvg)
   display.setTextColor(WHITE);
   display.setCursor(0, 0);
   //displays on screen (value, number of digits (after decinal?))
-  display.print(Vin);
+  display.print(Vin, 3);
   display.print(" ");
-  display.print(rangeMult);
+  display.print(ampsMult);
 
   //displayPostfix(config, config2); //display V / A / Ohms
   display.display();
@@ -193,8 +191,9 @@ void voltsRange(int config2)
 }
 
 
-void ampsRange(int config2)
+double ampsRange(int config2)
 {
+  double mult = 0;
   //voltage optos
   digitalWrite(PA0, LOW); //Vopto1 (Voltage divider input)
   digitalWrite(PA2, LOW); //ADCOpto4 (10V)
@@ -205,7 +204,7 @@ void ampsRange(int config2)
   {
 
     case 1: //10A
-      rangeMult = 0.01; //10mOhms
+      mult = 0.01; //10mOhms
       digitalWrite(PA10, HIGH); //1A AOpto2
       digitalWrite(PA9, HIGH); //100mA AOpto3
       digitalWrite(PA8, HIGH); //10mA AOpto4
@@ -217,7 +216,7 @@ void ampsRange(int config2)
       digitalWrite(PB4, HIGH); //ADCOptoNew (200mV) output
     break;
     case 2: //1A
-      rangeMult = 0.1; //100mOhms
+      mult = 0.1; //100mOhms
       digitalWrite(PA11, HIGH); //10A AOpto1
       digitalWrite(PA9, HIGH); //100mA AOpto3
       digitalWrite(PA8, HIGH); //10mA AOpto4
@@ -229,7 +228,7 @@ void ampsRange(int config2)
       digitalWrite(PB4, HIGH); //ADCOptoNew (200mV) output
     break;
     case 3: //100mA
-      rangeMult = 1; //1 Ohm
+      mult = 1; //1 Ohm
       digitalWrite(PA11, HIGH); //10A AOpto1
       digitalWrite(PA10, HIGH); //1A AOpto2
       digitalWrite(PA8, HIGH); //10mA AOpto4
@@ -241,7 +240,7 @@ void ampsRange(int config2)
       digitalWrite(PB4, HIGH); //ADCOptoNew (200mV) output
     break;
     case 4: //10mA
-      rangeMult = 10; //10 Ohms
+      mult = 10; //10 Ohms
       digitalWrite(PA11, HIGH); //10A AOpto1
       digitalWrite(PA10, HIGH); //1A AOpto2
       digitalWrite(PA9, HIGH); //100mA AOpto3
@@ -253,7 +252,7 @@ void ampsRange(int config2)
       digitalWrite(PB4, HIGH); //ADCOptoNew (200mV) output
     break;
     case 5: //1mA
-      rangeMult = 100; //100 Ohms
+      mult = 100; //100 Ohms
       digitalWrite(PA11, HIGH); //10A AOpto1
       digitalWrite(PA10, HIGH); //1A AOpto2
       digitalWrite(PA9, HIGH); //100mA AOpto3
@@ -265,6 +264,7 @@ void ampsRange(int config2)
       digitalWrite(PB4, HIGH); //ADCOptoNew (200mV) output
     break;
   }
+  return(mult);
 }
 
 
